@@ -7,7 +7,7 @@ Proyecto de la asignatura **DSY1105 – Desarrollo de Aplicaciones Móviles** (D
 ## Integrantes
 
 - Matias Coronado
-- [Nombre integrante 2]
+- Benjamin Alvarez
 
 ## Funcionalidades implementadas
 
