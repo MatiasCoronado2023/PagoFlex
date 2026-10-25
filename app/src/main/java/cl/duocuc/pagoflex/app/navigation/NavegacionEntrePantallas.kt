@@ -1,5 +1,10 @@
 package cl.duocuc.pagoflex.app.navigation
 
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -97,7 +102,14 @@ fun NavegacionEntrePantallas() {
         }
     }
 
-    NavHost(navController = nav, startDestination = Ruta.Login.ruta) {
+    NavHost(
+        navController = nav,
+        startDestination = Ruta.Login.ruta,
+        enterTransition = { slideInHorizontally(tween(300)) { ancho -> ancho } + fadeIn(tween(300)) },
+        exitTransition = { slideOutHorizontally(tween(300)) { ancho -> -ancho / 3 } + fadeOut(tween(300)) },
+        popEnterTransition = { slideInHorizontally(tween(300)) { ancho -> -ancho / 3 } + fadeIn(tween(300)) },
+        popExitTransition = { slideOutHorizontally(tween(300)) { ancho -> ancho } + fadeOut(tween(300)) }
+    ) {
         composable(Ruta.Login.ruta) {
             PantallaIniciarSesion(
                 correoRecordado,

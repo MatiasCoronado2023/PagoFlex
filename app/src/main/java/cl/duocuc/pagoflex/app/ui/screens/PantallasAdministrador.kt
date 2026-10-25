@@ -1,5 +1,6 @@
 package cl.duocuc.pagoflex.app.ui.screens
 
+import androidx.compose.animation.Crossfade
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.*
@@ -41,10 +42,12 @@ fun PantallaInicioAdministrador(
     val saludo = "Hola, ${admin.nombre.substringBefore(' ')} · Administrador"
     Scaffold(topBar = { BarraSuperior(admin.nombre, saludo, tituloPestana, foto, menu) }) { padding ->
         Column(Modifier.fillMaxSize().padding(padding)) {
-            when (pestana) {
-                0 -> ListaReportes(reportes, onVerReporte)
-                1 -> ListaCompromisos(compromisos, sePuedeAnular, onAnular, onRegistrar)
-                else -> PanelResumen(resumen)
+            Crossfade(targetState = pestana, label = "seccionAdministrador") { seccion ->
+                when (seccion) {
+                    0 -> ListaReportes(reportes, onVerReporte)
+                    1 -> ListaCompromisos(compromisos, sePuedeAnular, onAnular, onRegistrar)
+                    else -> PanelResumen(resumen)
+                }
             }
         }
     }
