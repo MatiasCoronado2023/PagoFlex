@@ -302,19 +302,31 @@ fun CampoTexto(
     tipoTeclado: KeyboardType = KeyboardType.Text,
     unaLinea: Boolean = true,
     oculto: Boolean = false,
+    icono: Int? = null,
     iconoDerecha: @Composable (() -> Unit)? = null
 ) {
     OutlinedTextField(
         value = valor, onValueChange = onValorCambia, modifier = modifier.fillMaxWidth(), label = { Text(etiqueta) },
-        trailingIcon = iconoDerecha, visualTransformation = if (oculto) PasswordVisualTransformation() else VisualTransformation.None,
+        leadingIcon = if (icono != null) { { Icono(icono, tamano = 20.dp) } } else null,
+        trailingIcon = when {
+            iconoDerecha != null -> iconoDerecha
+            error != null -> { { IconoError() } }
+            else -> null
+        },
+        visualTransformation = if (oculto) PasswordVisualTransformation() else VisualTransformation.None,
         isError = error != null, supportingText = { TextoError(error) }, singleLine = unaLinea,
         shape = RoundedCornerShape(14.dp), keyboardOptions = KeyboardOptions(keyboardType = tipoTeclado)
     )
 }
 
 @Composable
+fun IconoError() {
+    Icono(R.drawable.ic_error, "Dato no válido", tamano = 20.dp, tint = MaterialTheme.colorScheme.error)
+}
+
+@Composable
 fun CampoContrasena(valor: String, onValorCambia: (String) -> Unit, etiqueta: String, visible: Boolean, onAlternarVisible: () -> Unit, error: String? = null) {
-    CampoTexto(valor, onValorCambia, etiqueta, error = error, tipoTeclado = KeyboardType.Password, oculto = !visible) {
+    CampoTexto(valor, onValorCambia, etiqueta, error = error, tipoTeclado = KeyboardType.Password, oculto = !visible, icono = R.drawable.ic_candado) {
         IconButton(onClick = onAlternarVisible) {
             Icono(
                 if (visible) R.drawable.ic_ojo_tachado else R.drawable.ic_ojo,
@@ -330,6 +342,8 @@ fun CampoRut(valor: String, onValorCambia: (String) -> Unit, etiqueta: String, e
         value = TextFieldValue(valor, TextRange(valor.length)),
         onValueChange = { onValorCambia(ReglasDeNegocio.formatearRut(it.text)) },
         modifier = Modifier.fillMaxWidth(), label = { Text(etiqueta) }, placeholder = { Text("12.345.678-5") },
+        leadingIcon = { Icono(R.drawable.ic_rut, tamano = 20.dp) },
+        trailingIcon = if (error != null) { { IconoError() } } else null,
         isError = error != null, supportingText = { Text(error ?: "Escribe solo números y K; los puntos y el guion se ponen solos") },
         singleLine = true, shape = RoundedCornerShape(14.dp),
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text, capitalization = KeyboardCapitalization.Characters)
@@ -509,7 +523,7 @@ fun DialogoMotivo(
             Column(Modifier.verticalScroll(rememberScrollState())) {
                 encabezado()
                 OpcionesRadio(motivos, motivo) { motivo = it; error = null }
-                CampoTexto(comentario, { comentario = it }, if (motivo == "Otro") "Comentario (obligatorio)" else "Comentario (opcional)", unaLinea = false)
+                CampoTexto(comentario, { comentario = it }, if (motivo == "Otro") "Comentario (obligatorio)" else "Comentario (opcional)", unaLinea = false, icono = R.drawable.ic_reportes)
                 TextoError(error)
             }
         },

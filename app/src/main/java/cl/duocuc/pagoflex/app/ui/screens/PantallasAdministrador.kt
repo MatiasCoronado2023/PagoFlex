@@ -16,6 +16,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import cl.duocuc.pagoflex.app.R
 import cl.duocuc.pagoflex.app.model.*
 import cl.duocuc.pagoflex.app.ui.components.*
 import cl.duocuc.pagoflex.app.ui.theme.*
@@ -213,9 +214,9 @@ fun PantallaRegistrarCompromiso(
                 Tarjeta(Modifier.padding(bottom = Medidas.espacioChico)) {
                     Text("Persona nueva: completa sus datos", fontWeight = FontWeight.SemiBold)
                     TextoError(errores["persona"])
-                    CampoTexto(nombre, { nombre = it }, "Nombre completo", error = errores["nombre"])
-                    CampoTexto(correo, { correo = it }, "Correo", error = errores["correo"], tipoTeclado = KeyboardType.Email)
-                    CampoTexto(telefono, { telefono = it }, "Teléfono", error = errores["telefono"], tipoTeclado = KeyboardType.Phone)
+                    CampoTexto(nombre, { nombre = it }, "Nombre completo", error = errores["nombre"], icono = R.drawable.ic_perfil)
+                    CampoTexto(correo, { correo = it }, "Correo", error = errores["correo"], tipoTeclado = KeyboardType.Email, icono = R.drawable.ic_correo)
+                    CampoTexto(telefono, { telefono = it }, "Teléfono", error = errores["telefono"], tipoTeclado = KeyboardType.Phone, icono = R.drawable.ic_telefono)
                 }
             }
             Box(Modifier.padding(bottom = Medidas.espacioChico)) {
@@ -227,12 +228,12 @@ fun PantallaRegistrarCompromiso(
                 }
             }
             TextoError(errores["empresa"])
-            CampoTexto(concepto, { concepto = it }, "Concepto", error = errores["concepto"])
-            CampoTexto(monto, { monto = it }, "Monto en pesos", error = errores["monto"], tipoTeclado = KeyboardType.Number)
-            CampoTexto(fecha, { fecha = it }, "Vencimiento (DD-MM-AAAA)", error = errores["fecha"])
+            CampoTexto(concepto, { concepto = it }, "Concepto", error = errores["concepto"], icono = R.drawable.ic_compromisos)
+            CampoTexto(monto, { monto = it }, "Monto en pesos", error = errores["monto"], tipoTeclado = KeyboardType.Number, icono = R.drawable.ic_pagar)
+            CampoTexto(fecha, { fecha = it }, "Vencimiento (DD-MM-AAAA)", error = errores["fecha"], icono = R.drawable.ic_calendario)
             Row(horizontalArrangement = Arrangement.spacedBy(Medidas.espacioChico)) {
-                CampoTexto(cuota, { cuota = it }, "N° cuota", Modifier.weight(1f), errores["cuota"], KeyboardType.Number)
-                CampoTexto(total, { total = it }, "Total cuotas", Modifier.weight(1f), tipoTeclado = KeyboardType.Number)
+                CampoTexto(cuota, { cuota = it }, "N° cuota", Modifier.weight(1f), errores["cuota"], KeyboardType.Number, icono = R.drawable.ic_numero)
+                CampoTexto(total, { total = it }, "Total cuotas", Modifier.weight(1f), tipoTeclado = KeyboardType.Number, icono = R.drawable.ic_numero)
             }
             TextoAyuda("Las cuotas son opcionales. El compromiso se crea como Pendiente.", Modifier)
             TextoError(errores["general"])
@@ -315,7 +316,7 @@ fun PantallaGestionarReporte(
                 }
                 EstadoReporte.EN_GESTION -> Tarjeta {
                     Text("Responsable: ${r.nombreAdmin ?: "—"}", fontWeight = FontWeight.SemiBold, modifier = Modifier.padding(bottom = 4.dp))
-                    CampoTexto(respuesta, { respuesta = it; error = null }, "Respuesta para la persona", unaLinea = false)
+                    CampoTexto(respuesta, { respuesta = it; error = null }, "Respuesta para la persona", unaLinea = false, icono = R.drawable.ic_reportes)
                     if (!yaAnulado) {
                         Row(verticalAlignment = Alignment.CenterVertically) {
                             Checkbox(checked = anular, onCheckedChange = { anular = it })

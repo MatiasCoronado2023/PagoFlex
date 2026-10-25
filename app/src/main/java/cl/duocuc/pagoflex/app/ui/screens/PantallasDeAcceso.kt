@@ -50,7 +50,7 @@ fun PantallaIniciarSesion(
             }
             Column(Modifier.padding(Medidas.espacioGrande), verticalArrangement = Arrangement.spacedBy(Medidas.espacioChico)) {
                 Text("Inicia sesión", style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.SemiBold)
-                CampoTexto(correo, { correo = it; error = null }, "Correo", tipoTeclado = KeyboardType.Email)
+                CampoTexto(correo, { correo = it; error = null }, "Correo", tipoTeclado = KeyboardType.Email, icono = R.drawable.ic_correo)
                 CampoContrasena(clave, { clave = it; error = null }, "Contraseña", verClave, { verClave = !verClave }, error = error)
                 BotonPrincipal("Ingresar", onClick = { scope.launch { error = onIngresar(correo, clave) } })
                 TextButton(onClick = onIrARegistro, modifier = Modifier.fillMaxWidth()) { Text("Crear una cuenta", fontWeight = FontWeight.Medium) }
@@ -98,10 +98,10 @@ fun PantallaCrearCuenta(
             Modifier.fillMaxSize().padding(padding).imePadding().verticalScroll(rememberScrollState())
                 .padding(Medidas.espacioMedio)
         ) {
-            CampoTexto(nombre, { nombre = it }, "Nombre completo", error = errores["nombre"])
+            CampoTexto(nombre, { nombre = it }, "Nombre completo", error = errores["nombre"], icono = R.drawable.ic_perfil)
             CampoRut(rut, { rut = it }, "RUT", errores["rut"])
-            CampoTexto(correo, { correo = it }, "Correo", error = errores["correo"], tipoTeclado = KeyboardType.Email)
-            CampoTexto(telefono, { telefono = it }, "Teléfono (opcional)", error = errores["telefono"], tipoTeclado = KeyboardType.Phone)
+            CampoTexto(correo, { correo = it }, "Correo", error = errores["correo"], tipoTeclado = KeyboardType.Email, icono = R.drawable.ic_correo)
+            CampoTexto(telefono, { telefono = it }, "Teléfono (opcional)", error = errores["telefono"], tipoTeclado = KeyboardType.Phone, icono = R.drawable.ic_telefono)
             CampoContrasena(clave, { clave = it }, "Contraseña (mínimo 6)", verClave, { verClave = !verClave }, error = errores["clave"])
             CampoContrasena(clave2, { clave2 = it }, "Repite la contraseña", verClave, { verClave = !verClave }, error = errores["clave2"])
 
