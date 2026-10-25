@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import cl.duocuc.pagoflex.app.data.BaseDeDatos
+import cl.duocuc.pagoflex.app.data.RecordatorioDePago
 import cl.duocuc.pagoflex.app.model.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
@@ -18,6 +19,7 @@ data class DatosDelUsuario(
 
 class ControlDelUsuario(application: Application) : AndroidViewModel(application) {
     private val db = BaseDeDatos.obtener(application)
+    private val recordatorio = RecordatorioDePago(application)
     private var usuario: Usuario? = null
 
     private val _datos = MutableStateFlow(DatosDelUsuario())
@@ -79,4 +81,10 @@ class ControlDelUsuario(application: Application) : AndroidViewModel(application
         recargar()
         return if (id == -1L) "No se pudo crear el reporte. Inténtalo de nuevo." else null
     }
+
+    fun recordarPago(c: Compromiso): Boolean = recordatorio.mostrar(
+        c.id.toInt(),
+        "Recordatorio de pago: ${c.empresa}",
+        "${ReglasDeNegocio.monto(c.total)} · ${c.concepto} · ${ReglasDeNegocio.textoVencimiento(c)}"
+    )
 }

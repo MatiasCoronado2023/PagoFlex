@@ -1,5 +1,9 @@
 package cl.duocuc.pagoflex.app.ui.screens
 
+import android.Manifest
+import android.os.Build
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.core.animateIntAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.*
@@ -165,6 +169,7 @@ fun PantallaDetalleCompromiso(
     motivoNoPagable: String?,
     onPagar: suspend (medio: String) -> Pago?,
     onReportar: suspend (motivo: String?, comentario: String) -> String?,
+    onRecordar: () -> Boolean,
     onVerComprobante: (idCompromiso: Long) -> Unit,
     onVolver: () -> Unit
 ) {
@@ -174,6 +179,18 @@ fun PantallaDetalleCompromiso(
     var aviso by remember { mutableStateOf<Pair<String, String>?>(null) }
     var procesando by remember { mutableStateOf(false) }
     val scope = rememberCoroutineScope()
+
+    val enviarRecordatorio = {
+        aviso = if (onRecordar()) "Recordatorio enviado" to "Revisa la notificación de PagoFlex en tu teléfono."
+        else "No se pudo enviar" to "Activa las notificaciones de PagoFlex en los ajustes del teléfono."
+    }
+    val pedirPermiso = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) { concedido ->
+        if (concedido) {
+            enviarRecordatorio()
+        } else {
+            aviso = "Notificaciones desactivadas" to "Sin este permiso no podemos recordarte tus pagos. Puedes activarlo después en los ajustes del teléfono."
+        }
+    }
 
     Scaffold(topBar = { BarraTitulo("Detalle del compromiso", onVolver) }) { padding ->
         Column(
@@ -218,6 +235,10 @@ fun PantallaDetalleCompromiso(
                     if (motivoNoPagable != null) aviso = "Todavía no se puede pagar" to motivoNoPagable else confirmar = true
                 }
                 BotonSecundario("Reportar un problema") { reportar = true }
+                BotonSecundario("Recordarme este pago") {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) pedirPermiso.launch(Manifest.permission.POST_NOTIFICATIONS)
+                    else enviarRecordatorio()
+                }
             }
             Spacer(Modifier.height(Medidas.espacioMedio))
         }

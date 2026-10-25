@@ -22,6 +22,7 @@ Proyecto de la asignatura **DSY1105 – Desarrollo de Aplicaciones Móviles** (D
 - Historial de pagos agrupado por mes, con filtros por empresa y mes.
 - Reportes de problemas y logros por pagar a tiempo.
 - Perfil con foto desde la cámara o la galería y cambio de contraseña.
+- Recordatorio de pago con notificación del teléfono.
 
 **Administrador**
 - Gestión de reportes (tomar, responder y resolver) con indicador de reportes atrasados.
@@ -37,8 +38,8 @@ Proyecto de la asignatura **DSY1105 – Desarrollo de Aplicaciones Móviles** (D
 | Navegación | Navigation Compose con control de acceso por rol |
 | Gestión de estado | ViewModel + StateFlow (arquitectura MVVM) |
 | Almacenamiento local | SQLite, SharedPreferences y archivo de imagen |
-| Recursos nativos | Cámara y galería de fotos |
-| Animaciones | Montos, barra de cuotas, mensajes de error y confirmación de pago |
+| Recursos nativos | Cámara, galería de fotos y notificaciones |
+| Animaciones | Transiciones entre pantallas, montos, barra de cuotas, mensajes de error y confirmación de pago |
 
 ## Tecnologías
 

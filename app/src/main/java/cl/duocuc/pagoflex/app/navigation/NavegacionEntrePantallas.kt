@@ -151,6 +151,7 @@ fun NavegacionEntrePantallas() {
                 c, controlUsuario.comprobanteDe(c.id), controlUsuario.reporteActivo(c.id), controlUsuario.validarPago(c),
                 onPagar = { medio -> controlUsuario.pagar(c, medio) },
                 onReportar = { motivo, comentario -> controlUsuario.reportar(c, motivo, comentario) },
+                onRecordar = { controlUsuario.recordarPago(c) },
                 onVerComprobante = { nav.navigate(Ruta.Comprobante.crear(it)) { popUpTo(Ruta.InicioUsuario.ruta) } },
                 onVolver = { nav.navigateUp() }
             )
