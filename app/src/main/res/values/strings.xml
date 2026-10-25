@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">PagoFlex</string>
+    <string name="cd_volver">Volver</string>
+    <string name="cd_mostrar_contrasena">Mostrar contraseña</string>
+    <string name="cd_ocultar_contrasena">Ocultar contraseña</string>
+    <string name="cd_menu">Abrir menú</string>
+    <string name="cd_foto_perfil">Foto de perfil</string>
+    <string name="cd_cambiar_foto">Cambiar foto de perfil</string>
+    <string name="cd_limpiar_busqueda">Borrar búsqueda</string>
+    <string name="cd_logo">Logo de PagoFlex</string>
+</resources>
